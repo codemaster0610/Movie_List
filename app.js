@@ -28,6 +28,18 @@ app.get('/movies/:movie_id',(req, res) => {
   res.render('show', { movie: movie })
 })
 
+// 增加搜尋列路由
+app.get('/search',(req, res) => {
+  console.log('rqq,qyery', req.query)
+  console.log(req.query.keyword)
+
+  const keyword =req.query.keyword
+  const movies = movieList.results.filter(movie => {
+    return movie.title.toLowerCase().includes(keyword.toLowerCase())
+  })
+  res.render('index', { movies: movies , keyword: keyword})
+})
+
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
